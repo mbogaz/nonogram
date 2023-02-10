@@ -1,4 +1,4 @@
-package com.codefirst.nonogram_fx;
+package com.codefirst.nonogram_fx.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
