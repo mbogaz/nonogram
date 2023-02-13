@@ -9,6 +9,7 @@ module com.codefirst.nonogram_fx {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires color.diff;
 
     opens com.codefirst.nonogram_fx to javafx.fxml;
     exports com.codefirst.nonogram_fx;

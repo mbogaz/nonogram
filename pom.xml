@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.dajudge.color-diff</groupId>
+            <artifactId>color-diff</artifactId>
+            <version>0.0.4</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>11.0.2</version>
