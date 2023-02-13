@@ -10,9 +10,12 @@ module com.codefirst.nonogram_fx {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires color.diff;
+    requires lombok;
 
     opens com.codefirst.nonogram_fx to javafx.fxml;
     exports com.codefirst.nonogram_fx;
     exports com.codefirst.nonogram_fx.controller;
     opens com.codefirst.nonogram_fx.controller to javafx.fxml;
+    exports com.codefirst.nonogram_fx.dto;
+    opens com.codefirst.nonogram_fx.dto to javafx.fxml;
 }

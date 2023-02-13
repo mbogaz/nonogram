@@ -35,7 +35,7 @@ public class HelloController {
             return;
         }
         FXMLLoader picturePixeliseLoader = new FXMLLoader(HelloApplication.class.getResource("puzzle-view.fxml"));
-        Scene scene = new Scene(picturePixeliseLoader.load(), 1280, 720);
+        Scene scene = new Scene(picturePixeliseLoader.load(), 1280, 1280);
         ((PuzzleController)picturePixeliseLoader.getController()).paintPuzzle();
         newStage.setScene(scene);
         newStage.show();
