@@ -11,7 +11,7 @@
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </HBox.margin>
       <TextField fx:id="widthInput" promptText="width" text="40" />
-      <TextField fx:id="heightInput" promptText="height" text="20" />
+      <TextField fx:id="heightInput" promptText="height" text="40" />
       <Button mnemonicParsing="false" onAction="#selectPictureButtonClick" text="Select Picture" />
       <opaqueInsets>
          <Insets />

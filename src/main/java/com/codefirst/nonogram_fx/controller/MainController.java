@@ -4,17 +4,16 @@ import com.codefirst.nonogram_fx.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloController {
+import static com.codefirst.nonogram_fx.util.Constants.*;
+import static com.codefirst.nonogram_fx.util.NotificationUtil.errorAlert;
+
+public class MainController {
 
     Stage newStage = new Stage();
-
-    public static Color[][] createdPixeliseContent;
 
     @FXML
     protected void onHelloButtonClick() throws IOException {
@@ -26,17 +25,13 @@ public class HelloController {
 
     @FXML
     protected void onStartPuzzleClick() throws IOException {
-        if(createdPixeliseContent == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Not Ready");
-            alert.setHeaderText("Please pixelise a picture first");
-
-            alert.showAndWait();
+        if (createdPixeliseContent == null) {
+            errorAlert("Not Ready", "Please pixelise a picture first");
             return;
         }
         FXMLLoader picturePixeliseLoader = new FXMLLoader(HelloApplication.class.getResource("puzzle-view.fxml"));
-        Scene scene = new Scene(picturePixeliseLoader.load(), 1280, 1280);
-        ((PuzzleController)picturePixeliseLoader.getController()).paintPuzzle();
+        Scene scene = new Scene(picturePixeliseLoader.load(), (SELECTED_WIDTH * 30) + 5, (SELECTED_HEIGHT * 30) + 5);
+        ((PuzzleController) picturePixeliseLoader.getController()).init();
         newStage.setScene(scene);
         newStage.show();
     }

@@ -7,16 +7,13 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.dajudge.colordiff.*;
 
-import static com.codefirst.nonogram_fx.controller.HelloController.createdPixeliseContent;
+import static com.codefirst.nonogram_fx.util.Constants.*;
 
 public class PixelArtUtil {
-    private static final Color[] selectedColors = {Color.RED, Color.PINK, Color.ORANGE, Color.PURPLE, Color.BLUE, Color.BROWN, Color.GRAY, Color.GREEN, Color.YELLOW, Color.WHITE, Color.BLACK, Color.LIGHTSALMON};
-    private static final List<RgbColor> palette = Arrays.stream(selectedColors).map(PixelArtUtil::toRgbColor).collect(Collectors.toList());
+
 
     public static Image pixelArtImage(Image orgImage) {
         WritableImage writableImage = new WritableImage(orgImage.getPixelReader(), (int) orgImage.getWidth(), (int) orgImage.getHeight());
@@ -41,10 +38,10 @@ public class PixelArtUtil {
     }
 
 
-    private static Color toColor(RgbColor rgbColor) {
+    public static Color toColor(RgbColor rgbColor) {
         return Arrays.stream(selectedColors).filter(color -> toRgbColor(color).equals(rgbColor)).findFirst().orElse(null);
     }
-    private static RgbColor toRgbColor(Color color) {
+    public static RgbColor toRgbColor(Color color) {
         return new RgbColor(color.getRed(), color.getGreen(), color.getBlue());
     }
 }
