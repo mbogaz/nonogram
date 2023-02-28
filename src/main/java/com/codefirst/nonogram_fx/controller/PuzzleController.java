@@ -1,10 +1,8 @@
 package com.codefirst.nonogram_fx.controller;
 
 import com.codefirst.nonogram_fx.dto.NavigationCell;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -13,7 +11,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;

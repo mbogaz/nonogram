@@ -1,12 +1,15 @@
 package com.codefirst.nonogram_fx.controller;
 
 import com.codefirst.nonogram_fx.HelloApplication;
+import com.codefirst.nonogram_fx.util.PixelArtUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import static com.codefirst.nonogram_fx.util.Constants.*;
 import static com.codefirst.nonogram_fx.util.NotificationUtil.errorAlert;
@@ -26,8 +29,15 @@ public class MainController {
     @FXML
     protected void onStartPuzzleClick() throws IOException {
         if (createdPixeliseContent == null) {
-            errorAlert("Not Ready", "Please pixelise a picture first");
-            return;
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream("b.png");
+            assert is != null;
+            Image image = new Image(is, SELECTED_WIDTH, SELECTED_HEIGHT, false, false);
+            PixelArtUtil.pixelArtAndSaveImage(image);
+            if (createdPixeliseContent == null) {
+                errorAlert("Not Ready", "Please pixelise a picture first");
+                return;
+            }
         }
         FXMLLoader picturePixeliseLoader = new FXMLLoader(HelloApplication.class.getResource("puzzle-view.fxml"));
         Scene scene = new Scene(picturePixeliseLoader.load(), (SELECTED_WIDTH * 30) + 5, (SELECTED_HEIGHT * 30) + 5);

@@ -42,7 +42,7 @@ public class PicturePixeliseController {
         if (file != null) {
 
             Image orgImage = new Image(file.toURI().toString(), SELECTED_WIDTH, SELECTED_HEIGHT, false, false);
-            Image image = PixelArtUtil.pixelArtImage(orgImage);
+            Image image = PixelArtUtil.pixelArtAndSaveImage(orgImage);
 
             imageView.setImage(image);
         }

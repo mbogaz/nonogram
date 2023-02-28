@@ -15,7 +15,7 @@ import static com.codefirst.nonogram_fx.util.Constants.*;
 public class PixelArtUtil {
 
 
-    public static Image pixelArtImage(Image orgImage) {
+    public static Image pixelArtAndSaveImage(Image orgImage) {
         WritableImage writableImage = new WritableImage(orgImage.getPixelReader(), (int) orgImage.getWidth(), (int) orgImage.getHeight());
         createdPixeliseContent = new Color[(int) orgImage.getWidth()][(int) orgImage.getHeight()];
 
