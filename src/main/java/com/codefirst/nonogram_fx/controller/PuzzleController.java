@@ -49,8 +49,6 @@ public class PuzzleController {
         paintPuzzle();
         paintNavigationRows();
         paintNavigationColumns();
-
-        openResultView();
     }
 
     public void paintPuzzle() {
