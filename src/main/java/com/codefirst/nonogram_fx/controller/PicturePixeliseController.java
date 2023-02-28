@@ -20,8 +20,7 @@ public class PicturePixeliseController {
     @FXML protected TextField widthInput;
     @FXML protected TextField heightInput;
 
-    FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-    FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+    FileChooser.ExtensionFilter fileExtensionFilter = new FileChooser.ExtensionFilter("image files", "*");
 
     @FXML
     protected void selectPictureButtonClick() {
@@ -36,7 +35,7 @@ public class PicturePixeliseController {
         FileChooser fileChooser = new FileChooser();
 
 
-        fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
+        fileChooser.getExtensionFilters().addAll(fileExtensionFilter);
 
         File file = fileChooser.showOpenDialog(null);
 
