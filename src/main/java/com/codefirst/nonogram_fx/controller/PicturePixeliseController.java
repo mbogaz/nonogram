@@ -9,9 +9,8 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+import static com.codefirst.nonogram_fx.util.Constants.*;
 import static com.codefirst.nonogram_fx.util.NotificationUtil.errorAlert;
-import static com.codefirst.nonogram_fx.util.Constants.SELECTED_HEIGHT;
-import static com.codefirst.nonogram_fx.util.Constants.SELECTED_WIDTH;
 
 public class PicturePixeliseController {
 
@@ -41,8 +40,9 @@ public class PicturePixeliseController {
 
         if (file != null) {
 
-            Image orgImage = new Image(file.toURI().toString(), SELECTED_WIDTH, SELECTED_HEIGHT, false, false);
-            Image image = PixelArtUtil.pixelArtAndSaveImage(orgImage);
+            ORG_IMAGE = new Image(file.toURI().toString());
+            Image orgImageScaled = PixelArtUtil.scale(ORG_IMAGE, SELECTED_WIDTH, SELECTED_HEIGHT, false);
+            Image image = PixelArtUtil.pixelArtAndSaveImage(orgImageScaled);
 
             imageView.setImage(image);
         }

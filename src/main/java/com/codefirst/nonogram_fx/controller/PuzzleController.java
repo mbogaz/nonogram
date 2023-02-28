@@ -1,9 +1,12 @@
 package com.codefirst.nonogram_fx.controller;
 
+import com.codefirst.nonogram_fx.HelloApplication;
 import com.codefirst.nonogram_fx.dto.NavigationBlock;
 import com.codefirst.nonogram_fx.dto.NavigationCell;
 import com.codefirst.nonogram_fx.view.NavigationButton;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -12,7 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,20 +42,22 @@ public class PuzzleController {
     public void init() {
         selectedColorView.widthProperty().bind(rootPane.widthProperty().multiply(20).divide(100));
         selectedColorView.heightProperty().bind(rootPane.heightProperty().multiply(20).divide(100));
-        remainingCells = createdPixeliseContent.length * createdPixeliseContent[0].length;
+        remainingCells = CREATED_PIXELISE_CONTENT.length * CREATED_PIXELISE_CONTENT[0].length;
         infoLabel.setText(remainingCells + " left");
         infoLabel.setStyle("--fxbackground-color: " + SELECTED_COLOR);
 
         paintPuzzle();
         paintNavigationRows();
         paintNavigationColumns();
+
+        openResultView();
     }
 
     public void paintPuzzle() {
         GridPane boardPane = new GridPane();
         boardPane.setGridLinesVisible(true);
-        for (int i = 0; i < createdPixeliseContent.length; i++) {
-            for (int j = 0; j < createdPixeliseContent[i].length; j++) {
+        for (int i = 0; i < CREATED_PIXELISE_CONTENT.length; i++) {
+            for (int j = 0; j < CREATED_PIXELISE_CONTENT[i].length; j++) {
                 createColorCell(boardPane, i, j);
             }
         }
@@ -72,12 +79,12 @@ public class PuzzleController {
 
     private void paintNavigationColumns() {
         List<NavigationBlock> navigationBlocks = new ArrayList<>();
-        for (int i = 0; i < createdPixeliseContent.length; i++) {
+        for (int i = 0; i < CREATED_PIXELISE_CONTENT.length; i++) {
             List<NavigationCell> navigationRow = new ArrayList<>();
             int sameColorCount = 0;
             Color prevColor = null;
-            for (int j = 0; j < createdPixeliseContent[i].length; j++) {
-                Color cellColor = createdPixeliseContent[i][j];
+            for (int j = 0; j < CREATED_PIXELISE_CONTENT[i].length; j++) {
+                Color cellColor = CREATED_PIXELISE_CONTENT[i][j];
                 if (cellColor.equals(prevColor) || prevColor == null) {
                     sameColorCount++;
                 } else {
@@ -106,11 +113,11 @@ public class PuzzleController {
 
     private void paintNavigationRows() {
         List<NavigationBlock> navigationBlocks = new ArrayList<>();
-        for (int i = 0; i < createdPixeliseContent[0].length; i++) {
+        for (int i = 0; i < CREATED_PIXELISE_CONTENT[0].length; i++) {
             List<NavigationCell> navigationRow = new ArrayList<>();
             int sameColorCount = 0;
             Color prevColor = null;
-            for (Color[] colors : createdPixeliseContent) {
+            for (Color[] colors : CREATED_PIXELISE_CONTENT) {
                 Color cellColor = colors[i];
                 if (cellColor.equals(prevColor) || prevColor == null) {
                     sameColorCount++;
@@ -172,7 +179,7 @@ public class PuzzleController {
             return;
         }
         if (isSecondary) {
-            if (createdPixeliseContent[i][j].equals(Color.WHITE)) {
+            if (CREATED_PIXELISE_CONTENT[i][j].equals(Color.WHITE)) {
                 rectangle.setFill(Color.IVORY);
                 remainingCells--;
                 infoLabel.setText(remainingCells + " left");
@@ -180,13 +187,29 @@ public class PuzzleController {
                 errorAlert("Wrong", "This tile has a color");
             }
         } else {
-            if (createdPixeliseContent[i][j].equals(SELECTED_COLOR)) {
+            if (CREATED_PIXELISE_CONTENT[i][j].equals(SELECTED_COLOR)) {
                 rectangle.setFill(SELECTED_COLOR);
                 remainingCells--;
                 infoLabel.setText(remainingCells + " left");
             } else {
                 errorAlert("Wrong", "This tile is not this color");
             }
+        }
+        if(remainingCells == 0) {
+            openResultView();
+        }
+    }
+
+    private void openResultView() {
+        try {
+            FXMLLoader resultViewLoader = new FXMLLoader(HelloApplication.class.getResource("result-view.fxml"));
+            Scene scene = new Scene(resultViewLoader.load());
+            ((ResultController) resultViewLoader.getController()).init();
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

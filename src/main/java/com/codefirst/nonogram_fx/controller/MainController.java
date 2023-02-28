@@ -28,13 +28,14 @@ public class MainController {
 
     @FXML
     protected void onStartPuzzleClick() throws IOException {
-        if (createdPixeliseContent == null) {
+        if (CREATED_PIXELISE_CONTENT == null) {
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             InputStream is = classloader.getResourceAsStream("b.png");
             assert is != null;
-            Image image = new Image(is, SELECTED_WIDTH, SELECTED_HEIGHT, false, false);
+            ORG_IMAGE = new Image(is);
+            Image image = PixelArtUtil.scale(ORG_IMAGE, SELECTED_WIDTH, SELECTED_HEIGHT, false);
             PixelArtUtil.pixelArtAndSaveImage(image);
-            if (createdPixeliseContent == null) {
+            if (CREATED_PIXELISE_CONTENT == null) {
                 errorAlert("Not Ready", "Please pixelise a picture first");
                 return;
             }
